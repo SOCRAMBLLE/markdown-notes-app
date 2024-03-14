@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
 export default function Sidebar(props) {
+  const noteTitle = (str) => {
+    if (str.startsWith("#")) {
+      str = str.substring(1);
+    }
+    return str.split("\n")[0];
+  };
   const noteElements = props.notes.map((note, index) => (
     <div key={note.id}>
       <div
@@ -8,7 +14,7 @@ export default function Sidebar(props) {
         }`}
         onClick={() => props.setCurrentNoteId(note.id)}
       >
-        <h4 className="text-snippet">Note {index + 1}</h4>
+        <h4 className="text-snippet">{noteTitle(note.body)}</h4>
       </div>
     </div>
   ));
