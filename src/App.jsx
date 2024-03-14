@@ -1,15 +1,23 @@
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Editor from "./components/Editor";
-import { data } from "./assets/data";
+import { data } from "./data";
 import Split from "react-split";
 import { nanoid } from "nanoid";
+import { useEffect } from "react";
 
 export default function App() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(
+    () => JSON.parse(localStorage.getItem("notes")) || []
+  );
   const [currentNoteId, setCurrentNoteId] = useState(
     (notes[0] && notes[0].id) || ""
   );
+
+  console.log("localstorage: ", JSON.parse(localStorage.getItem("notes")));
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   function createNewNote() {
     const newNote = {
