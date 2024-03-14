@@ -29,13 +29,27 @@ export default function App() {
   }
 
   function updateNote(text) {
-    setNotes((oldNotes) =>
-      oldNotes.map((oldNote) => {
-        return oldNote.id === currentNoteId
-          ? { ...oldNote, body: text }
-          : oldNote;
-      })
-    );
+    setNotes((prev) => {
+      const newNotesList = [];
+      for (let i = 0; i < prev.length; i++) {
+        const oldNote = prev[i];
+        if (oldNote.id === currentNoteId) {
+          newNotesList.unshift({ ...oldNote, body: text });
+        } else {
+          newNotesList.push(oldNote);
+        }
+      }
+      return newNotesList;
+    });
+
+    // Does not rearrange the notes
+    // setNotes((oldNotes) =>
+    //   oldNotes.map((oldNote) => {
+    //     return oldNote.id === currentNoteId
+    //       ? { ...oldNote, body: text }
+    //       : oldNote;
+    //   })
+    // );
   }
 
   function findCurrentNote() {
