@@ -6,7 +6,7 @@ export default function Sidebar(props) {
     }
     return str.split("\n")[0];
   };
-  const noteElements = props.notes.map((note, index) => (
+  const noteElements = props.notes.map((note) => (
     <div key={note.id}>
       <div
         className={`title ${
@@ -17,7 +17,7 @@ export default function Sidebar(props) {
         <h4 className="text-snippet">{noteTitle(note.body)}</h4>
         <button
           className="delete-btn"
-          onClick={() => props.deleteNote(event, note.id)}
+          onClick={(event) => props.deleteNote(event, note.id)}
         >
           <i
             className={`gg-trash trash-icon ${
